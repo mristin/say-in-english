@@ -1073,7 +1073,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/sabre.png'>",
-                answers: ["sabre"]
+                answers: ["sabre", "saber", "sable"]
             },
             {
                 question: "<img src='additional-emojis/katana.png'>",
@@ -1117,7 +1117,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/moat.png'>",
-                answers: ["moat"]
+                answers: ["moat", "mote"]
             },
             {
                 question: "<img src='additional-emojis/castle-bridge.png'>",
