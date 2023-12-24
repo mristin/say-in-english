@@ -2436,9 +2436,8 @@ function setupSpeechRecognition() {
     recognition.onspeechend = function () {
         console.log("Speech recognition stopped to record speech...")
         microphone.className = "microphone-idle";
-        // TODO rem?
-        // recognition.stop();
-        // recognition.start();
+        recognition.stop();
+        recognition.start();
     }
 
     recognition.onresult = function (event) {
