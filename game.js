@@ -2012,6 +2012,13 @@ class DialoguePlay {
         this.score = 0;
 
         /**
+         * Timestamp when the ghost moved the last time
+         * @type {null|number}
+         */
+        this.lastGhostStep = null;
+        this.ghostSteps = 10;
+
+        /**
          * If set, react to the answers
          * @type {boolean}
          */
@@ -2040,7 +2047,10 @@ class DialoguePlay {
         return `<div id="question"></div>
 
 <div id="terrain">
-    <span id="score"></span><span id="potential"></span>
+    <span id="score"
+    ></span><span id="potential"
+    ></span><span id="ghost"
+    ></span>
 </div>`;
     }
 
@@ -2059,8 +2069,89 @@ class DialoguePlay {
         return null;
     }
 
+    resetGhost() {
+        this.lastGhostStep = null;
+        this.ghostSteps = 10;
+    }
+
+    /**
+     * Change the state and perform side effects on hitting the right answer.
+     */
+    handleCorrectAnswer() {
+        this.playSuccess();
+
+        this.remainingCards.pop();
+
+        const card = this.remainingCards[this.remainingCards.length - 1];
+        
+        this.solvedCards.push(card);
+
+        this.score += card.currentScore;
+
+        this.resetGhost();
+
+        if (this.remainingCards.length === 0) {
+            dialoguer.put(new DialogueBravo());
+        } else {
+            this.logCard();
+            this.questionStart = systemState.timestamp;
+        }
+    }
+
+    /**
+     * Change the state and perform side effects on missing the correct answer.
+     */
+    handleMistake() {
+        this.playMistake();
+
+        const card = this.remainingCards[this.remainingCards.length - 1];
+
+        card.currentScore--;
+        if (card.currentScore === 0) {
+            this.handleFail();
+        }
+    }
+
+    /**
+     * Change the state and perform side effects when we fail at a card.
+     *
+     * This happens when either too many wrong answers are given, or
+     * the time ran out.
+     */
+    handleFail() {
+        this.playable = false;
+
+        const that = this;
+
+        const card = this.remainingCards[this.remainingCards.length - 1];
+
+        function unshiftCardAndResume() {
+            card.maxScore = 1;
+            card.currentScore = card.maxScore;
+            that.remainingCards.pop();
+            that.remainingCards.unshift(card);
+
+            that.resetGhost();
+
+            that.playable = true;
+        }
+
+        promiseToRevealCorrectAnswer(card.answers[0])
+            .then(unshiftCardAndResume)
+            .catch(
+                (error) => {
+                    console.log(
+                        "Failed to announce the right answer:",
+                        error
+                    );
+                    unshiftCardAndResume();
+                }
+            );
+    }
+
     mount() {
         this.logCard();
+        this.questionStart = systemState.timestamp;
 
         this.oldSpeechRecognitionOnResult = (
             systemState.speechRecognition.onresult
@@ -2087,50 +2178,11 @@ class DialoguePlay {
                 );
 
                 if (card.answerSet.has(option)) {
-                    // We hit the right answer.
-
-                    that.playSuccess();
-
-                    that.remainingCards.pop();
-                    that.solvedCards.push(card);
-
-                    that.score += card.currentScore;
-
-                    if (that.remainingCards.length === 0) {
-                        dialoguer.put(new DialogueBravo());
-                    } else {
-                        that.logCard();
-                    }
+                    that.handleCorrectAnswer();
                 } else if (option === "restart") {
                     dialoguer.put(new DialogueSelectLevel());
                 } else {
-                    // We made a mistake.
-
-                    that.playMistake();
-
-                    card.currentScore--;
-                    if (card.currentScore === 0) {
-                        that.playable = false;
-
-                        function unshiftCardAndResume() {
-                            card.maxScore = 1;
-                            card.currentScore = card.maxScore;
-                            that.remainingCards.pop();
-                            that.remainingCards.unshift(card);
-                            that.playable = true;
-                        }
-
-                        promiseToRevealCorrectAnswer(card.answers[0])
-                            .then(unshiftCardAndResume)
-                            .catch(
-                                (error) => {
-                                    console.log(
-                                        "Failed to announce the right answer:",
-                                        error
-                                    );
-                                    unshiftCardAndResume();
-                                });
-                    }
+                    that.handleMistake();
                 }
             } finally {
                 that.oldSpeechRecognitionOnResult(event);
@@ -2187,14 +2239,43 @@ class DialoguePlay {
         );
     }
 
+    refreshGhost() {
+        const ghost = [];
+        for (let i = 0; i < this.ghostSteps; i++) {
+            ghost.push("&nbsp;");
+        }
+        ghost.push("👻");
+
+        const text = ghost.join("");
+        updateInnerHTMLIfNeeded(
+            document.getElementById("ghost"),
+            text
+        );
+    }
+
     refresh() {
         this.refreshCard();
         this.refreshScore();
         this.refreshPotential();
+        this.refreshGhost();
     }
 
     tick(timestamp) {
-        // Intentionally empty.
+        if (this.playable) {
+            if (this.lastGhostStep === null) {
+                this.lastGhostStep = systemState.timestamp;
+            } else {
+                const duration = systemState.timestamp - this.lastGhostStep;
+                if (duration > 1000) {
+                    this.ghostSteps--;
+                    this.lastGhostStep = systemState.timestamp;
+
+                    if (this.ghostSteps === 0) {
+                        this.handleFail();
+                    }
+                }
+            }
+        }
     }
 
     unmount() {
@@ -2204,13 +2285,14 @@ class DialoguePlay {
     }
 }
 
-const bravoMessages = [
-    "Bravo!",
-    "Well done!",
-    "Good job!",
-    "Great job!",
-    "Congratulations!"
-]
+const
+    bravoMessages = [
+        "Bravo!",
+        "Well done!",
+        "Good job!",
+        "Great job!",
+        "Congratulations!"
+    ]
 
 /**
  * Congratulate the player and finish the game.
@@ -2311,7 +2393,13 @@ const dialoguer = new Dialoguer();
 
 const systemState = {
     speechSynthesisVoice: null,
-    speechRecognition: null
+    speechRecognition: null,
+
+    /**
+     * Current time of the system
+     * @type {number}
+     */
+    timestamp: 0
 }
 
 const gameState = {
@@ -2546,6 +2634,8 @@ function handleFrame(timestamp) {
         dialoguer.dialogue.tick(timestamp);
         dialoguer.dialogue.refresh();
     }
+
+    systemState.timestamp = timestamp;
 
     requestAnimationFrame(handleFrame);
 }
