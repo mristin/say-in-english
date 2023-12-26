@@ -96,7 +96,7 @@ const levels = [
             {question: "🦔", answers: ["hedgehog"]},
             {question: "🐆", answers: ["leopard"]},
             {question: "🦕", answers: ["dinosaur"]},
-            {question: "🦖", answers: ["t rex"]},
+            {question: "🦖", answers: ["t rex", "t-rex"]},
             {question: "🦓", answers: ["zebra"]},
             {question: "🐎", answers: ["horse"]},
             {question: "🦛", answers: ["hippopotamus"]},
@@ -180,7 +180,7 @@ const levels = [
                     "<img src='additional-emojis/swing.png'>" +
                     "<img src='additional-emojis/sandbox.png'"
                 ),
-                answer: "playground"
+                answers: ["playground"]
             },
             {question: "🛝", answers: ["slide"]},
             {
@@ -775,7 +775,7 @@ const levels = [
                 answers: ["meat"]
             },
             {question: "🐟", answers: ["fish"]},
-            {question: "🍅", answers: ["tomato"]},
+            {question: "🍅", answers: ["tomato", "tomatoe"]},
             {question: "🥕", answers: ["carrot"]},
             {question: "🍆", answers: ["eggplant"]},
             {question: "🫛", answers: ["peas"]},
@@ -790,7 +790,7 @@ const levels = [
             {question: "🥭", answers: ["mango"]},
             {question: "🌽", answers: ["corn"]},
             {question: "🍿", answers: ["popcorn"]},
-            {question: "🥔", answers: ["potato"]},
+            {question: "🥔", answers: ["potato", "potatoe"]},
             {question: "🥦", answers: ["broccoli"]},
             {question: "🍏", answers: ["apple"]},
             {question: "🍋", answers: ["lemon"]},
@@ -1792,6 +1792,7 @@ class DialogueSelectLevel {
         this.levelIndex = gameState.levelIndex;
 
         this.oldSpeechRecognitionOnResult = null;
+        this.oldSpeechRecognitionOnResult = null;
     }
 
     initialHTML() {
@@ -1831,6 +1832,22 @@ Select the level:
             }
         }
 
+        const that = this;
+
+        this.oldSpeechRecognitionOnEnd = (
+            systemState.speechRecognition.onend
+        );
+        systemState.speechRecognition.onend = function (event) {
+            if (that.oldSpeechRecognitionOnEnd) {
+                that.oldSpeechRecognitionOnEnd(event);
+            }
+
+            // NOTE (mristin):
+            // Chrome turns off sometimes the speech recognition for
+            // arbitrary reasons, so we have to turn it on again.
+            systemState.speechRecognition.start();
+        }
+
         this.oldSpeechRecognitionOnResult = (
             systemState.speechRecognition.onresult
         );
@@ -1843,8 +1860,9 @@ Select the level:
             choice.push(level.name);
         }
 
-        const that = this;
         systemState.speechRecognition.onresult = function (event) {
+            that.oldSpeechRecognitionOnResult(event);
+
             const option = whichTextRecognized(
                 event.results,
                 choice
@@ -1854,8 +1872,6 @@ Select the level:
                 that.levelIndex = levelIndexByName.get(option);
                 that.startTheGame();
             }
-
-            that.oldSpeechRecognitionOnResult(event);
         };
     }
 
@@ -1875,6 +1891,10 @@ Select the level:
     unmount() {
         systemState.speechRecognition.onresult = (
             this.oldSpeechRecognitionOnResult
+        );
+
+        systemState.speechRecognition.onend = (
+            this.oldSpeechRecognitionOnEnd
         );
     }
 }
@@ -2025,6 +2045,7 @@ class DialoguePlay {
         this.playable = true;
 
         this.oldSpeechRecognitionOnResult = null;
+        this.oldSpeechRecognitionOnEnd = null;
     }
 
     playMistake() {
@@ -2080,21 +2101,20 @@ class DialoguePlay {
     handleCorrectAnswer() {
         this.playSuccess();
 
-        this.remainingCards.pop();
-
         const card = this.remainingCards[this.remainingCards.length - 1];
-        
-        this.solvedCards.push(card);
-
         this.score += card.currentScore;
 
-        this.resetGhost();
+        this.solvedCards.push(card);
+
+        this.remainingCards.pop();
 
         if (this.remainingCards.length === 0) {
             dialoguer.put(new DialogueBravo());
         } else {
             this.logCard();
             this.questionStart = systemState.timestamp;
+
+            this.resetGhost();
         }
     }
 
@@ -2120,20 +2140,30 @@ class DialoguePlay {
      */
     handleFail() {
         this.playable = false;
+        systemState.speechRecognition.stop();
 
         const that = this;
 
         const card = this.remainingCards[this.remainingCards.length - 1];
 
         function unshiftCardAndResume() {
-            card.maxScore = 1;
-            card.currentScore = card.maxScore;
-            that.remainingCards.pop();
-            that.remainingCards.unshift(card);
+            const oldOnStart = systemState.speechRecognition.onstart;
 
-            that.resetGhost();
+            systemState.speechRecognition.onstart = function (event) {
+                card.maxScore = 1;
+                card.currentScore = card.maxScore;
+                that.remainingCards.pop();
+                that.remainingCards.unshift(card);
 
-            that.playable = true;
+                that.resetGhost();
+                that.logCard();
+                that.playable = true;
+
+                oldOnStart(event);
+                systemState.speechRecognition.onstart = oldOnStart;
+            }
+
+            systemState.speechRecognition.start();
         }
 
         promiseToRevealCorrectAnswer(card.answers[0])
@@ -2153,39 +2183,54 @@ class DialoguePlay {
         this.logCard();
         this.questionStart = systemState.timestamp;
 
+        const that = this;
+        this.oldSpeechRecognitionOnEnd = (
+            systemState.speechRecognition.onend
+        );
+        systemState.speechRecognition.onend = function (event) {
+            if (that.oldSpeechRecognitionOnEnd) {
+                that.oldSpeechRecognitionOnEnd(event);
+            }
+
+            // NOTE (mristin):
+            // Chrome sometimes turns off the speech recognition for no
+            // particular reason, so we have to switch it back on only if
+            // in the playable mode.
+            if (that.playable) {
+                systemState.speechRecognition.start();
+            }
+        }
+
         this.oldSpeechRecognitionOnResult = (
             systemState.speechRecognition.onresult
         );
 
-        const that = this;
         systemState.speechRecognition.onresult = function (event) {
-            try {
-                if (!that.playable) {
-                    return;
-                }
+            that.oldSpeechRecognitionOnResult(event);
 
-                if (that.remainingCards.length === 0) {
-                    return;
-                }
+            if (!that.playable) {
+                return;
+            }
 
-                const card = (
-                    that.remainingCards[that.remainingCards.length - 1]
-                );
+            if (that.remainingCards.length === 0) {
+                return;
+            }
 
-                const option = whichTextRecognized(
-                    event.results,
-                    card.answers.concat(["restart"])
-                );
+            const card = (
+                that.remainingCards[that.remainingCards.length - 1]
+            );
 
-                if (card.answerSet.has(option)) {
-                    that.handleCorrectAnswer();
-                } else if (option === "restart") {
-                    dialoguer.put(new DialogueSelectLevel());
-                } else {
-                    that.handleMistake();
-                }
-            } finally {
-                that.oldSpeechRecognitionOnResult(event);
+            const option = whichTextRecognized(
+                event.results,
+                card.answers.concat(["restart"])
+            );
+
+            if (card.answerSet.has(option)) {
+                that.handleCorrectAnswer();
+            } else if (option === "restart") {
+                dialoguer.put(new DialogueSelectLevel());
+            } else {
+                that.handleMistake();
             }
         };
     }
@@ -2282,6 +2327,9 @@ class DialoguePlay {
         systemState.speechRecognition.onresult = (
             this.oldSpeechRecognitionOnResult
         );
+        systemState.speechRecognition.onend = (
+            this.oldSpeechRecognitionOnEnd
+        );
     }
 }
 
@@ -2300,6 +2348,7 @@ const
  */
 class DialogueBravo {
     constructor() {
+        this.oldSpeechRecognitionOnEnd = null;
         this.oldSpeechRecognitionOnResult = null;
     }
 
@@ -2325,13 +2374,29 @@ class DialogueBravo {
                 console.log("Failed to say bravo", err)
             })
 
-        this.oldSpeechRecognitionOnResult = (
-            systemState.speechRecognition.onresult
-        );
 
         const that = this;
 
+        this.oldSpeechRecognitionOnEnd = (
+            systemState.speechRecognition.onend
+        );
+        systemState.speechRecognition.onend = function (event) {
+            if (that.oldSpeechRecognitionOnEnd) {
+                that.oldSpeechRecognitionOnEnd(event);
+            }
+
+            // NOTE (mristin):
+            // Chrome turns off sometimes the speech recognition arbirarily,
+            // so we have to turn it on.
+            systemState.speechRecognition.start();
+        }
+
+        this.oldSpeechRecognitionOnResult = (
+            systemState.speechRecognition.onresult
+        );
         systemState.speechRecognition.onresult = function (event) {
+            that.oldSpeechRecognitionOnResult(event);
+
             const option = whichTextRecognized(
                 event.results,
                 ["restart"]
@@ -2340,8 +2405,6 @@ class DialogueBravo {
             if (option === "restart") {
                 dialoguer.put(new DialogueSelectLevel());
             }
-
-            that.oldSpeechRecognitionOnResult(event);
         }
     }
 
@@ -2357,6 +2420,8 @@ class DialogueBravo {
         systemState.speechRecognition.onresult = (
             this.oldSpeechRecognitionOnResult
         );
+
+        systemState.speechRecognition.onend = this.oldSpeechRecognitionOnEnd;
     }
 }
 
@@ -2513,7 +2578,7 @@ function setupSpeechRecognition() {
 
     recognition.onstart = function () {
         console.log("Speech recognition started.")
-        microphone.className = "microphone-idle";
+        microphone.className = "microphone-recording";
     }
 
     recognition.onspeechstart = function () {
@@ -2524,8 +2589,11 @@ function setupSpeechRecognition() {
     recognition.onspeechend = function () {
         console.log("Speech recognition stopped to record speech...")
         microphone.className = "microphone-idle";
-        recognition.stop();
-        recognition.start();
+    }
+
+    recognition.onend = function () {
+        console.log("Speech recognition ended.");
+        microphone.className = "microphone-idle";
     }
 
     recognition.onresult = function (event) {
