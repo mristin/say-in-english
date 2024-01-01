@@ -146,7 +146,7 @@ const levels = [
             {question: "🦄", answers: ["unicorn"]},
             {question: "🫏", answers: ["donkey"]},
             {question: "🫎", answers: ["moose"]},
-            {question: "🐤", answers: ["chick"]},
+            {question: "🐤", answers: ["chick", "check", "cheek"]},
             {question: "🪼", answers: ["jellyfish"]},
             {question: "🐚", answers: ["shell"]},
             {question: "🪱", answers: ["worm"]},
@@ -1934,6 +1934,8 @@ class DialogueHello {
     }
 
     mount() {
+        systemState.speechRecognition.stop();
+
         const messageIndex = Math.floor(Math.random() * hiMessages.length);
         announce(
             hiMessages[messageIndex]
@@ -2266,6 +2268,11 @@ class DialoguePlay {
                 that.handleMistake();
             }
         };
+
+        // NOTE (mristin):
+        // We stopped at the hello dialogue, so we have to start recognizing
+        // now.
+        systemState.speechRecognition.start();
     }
 
     refreshCard() {
