@@ -1784,6 +1784,35 @@ internet connection and your browser needs one for speech recognition?
 }
 
 /**
+ * Decorate the speech `onend` so that the speech recognition is automatically
+ * restarted.
+ *
+ * Chrome turns off sometimes the speech recognition for arbitrary reasons,
+ * so we have to turn it on again.
+ *
+ * The undecorator function is returned. Make sure you call it on destruction.
+ *
+ * @returns {(function(): void)}
+ */
+function decorateSpeechRecognitionToContinuouslyRestart() {
+    const oldSpeechRecognitionOnEnd = (
+        systemState.speechRecognition.onend
+    );
+
+    systemState.speechRecognition.onend = function (event) {
+        if (oldSpeechRecognitionOnEnd) {
+            oldSpeechRecognitionOnEnd(event);
+        }
+
+        systemState.speechRecognition.start();
+    }
+
+    return function() {
+        systemState.speechRecognition.onend = oldSpeechRecognitionOnEnd;
+    }
+}
+
+/**
  * Let the user select the level.
  * @implements IDialogue
  */
@@ -1792,7 +1821,7 @@ class DialogueSelectLevel {
         this.levelIndex = gameState.levelIndex;
 
         this.oldSpeechRecognitionOnResult = null;
-        this.oldSpeechRecognitionOnResult = null;
+        this.undecorateSpeechRecognitionOnEnd = null;
     }
 
     initialHTML() {
@@ -1832,21 +1861,11 @@ Select the level:
             }
         }
 
-        const that = this;
-
-        this.oldSpeechRecognitionOnEnd = (
-            systemState.speechRecognition.onend
+        this.undecorateSpeechRecognitionOnEnd = (
+            decorateSpeechRecognitionToContinuouslyRestart()
         );
-        systemState.speechRecognition.onend = function (event) {
-            if (that.oldSpeechRecognitionOnEnd) {
-                that.oldSpeechRecognitionOnEnd(event);
-            }
 
-            // NOTE (mristin):
-            // Chrome turns off sometimes the speech recognition for
-            // arbitrary reasons, so we have to turn it on again.
-            systemState.speechRecognition.start();
-        }
+        const that = this;
 
         this.oldSpeechRecognitionOnResult = (
             systemState.speechRecognition.onresult
@@ -1893,9 +1912,7 @@ Select the level:
             this.oldSpeechRecognitionOnResult
         );
 
-        systemState.speechRecognition.onend = (
-            this.oldSpeechRecognitionOnEnd
-        );
+        this.undecorateSpeechRecognitionOnEnd();
     }
 }
 
@@ -1962,17 +1979,11 @@ class StatefulCard {
         this.answerSet = new Set(theAnswers);
 
         /**
-         * How may points/wrong answers left for the card
+         * The number of points won on hitting the right answer
          *
          * @type {number}
          */
-        this.maxScore = 3;
-
-        /**
-         * How many points are won on the correct answer
-         * @type {number}
-         */
-        this.currentScore = this.maxScore;
+        this.score = 3;
     }
 }
 
@@ -2029,6 +2040,16 @@ class DialoguePlay {
          */
         this.solvedCards = [];
 
+        /**
+         * Number of trials left for the current card
+         * @type {number}
+         */
+        this.trials = 3;
+
+        /**
+         * Total score in the game so far
+         * @type {number}
+         */
         this.score = 0;
 
         /**
@@ -2095,25 +2116,31 @@ class DialoguePlay {
         this.ghostSteps = 10;
     }
 
+    resetTrials() {
+        this.trials = 3;
+        console.log("Trials: ", this.trials);
+    }
+
     /**
      * Change the state and perform side effects on hitting the right answer.
      */
     handleCorrectAnswer() {
+        console.log("Handling correct answer...")
+
         this.playSuccess();
 
         const card = this.remainingCards[this.remainingCards.length - 1];
-        this.score += card.currentScore;
+        this.score += card.score;
 
         this.solvedCards.push(card);
 
         this.remainingCards.pop();
 
         if (this.remainingCards.length === 0) {
-            dialoguer.put(new DialogueBravo());
+            dialoguer.put(new DialogueBravo(this.score));
         } else {
             this.logCard();
-            this.questionStart = systemState.timestamp;
-
+            this.resetTrials();
             this.resetGhost();
         }
     }
@@ -2122,12 +2149,12 @@ class DialoguePlay {
      * Change the state and perform side effects on missing the correct answer.
      */
     handleMistake() {
+        console.log("Handling mistake...")
         this.playMistake();
 
-        const card = this.remainingCards[this.remainingCards.length - 1];
-
-        card.currentScore--;
-        if (card.currentScore === 0) {
+        this.trials--;
+        console.log("Trials: ", this.trials);
+        if (this.trials === 0) {
             this.handleFail();
         }
     }
@@ -2139,6 +2166,8 @@ class DialoguePlay {
      * the time ran out.
      */
     handleFail() {
+        console.log("Handling fail...");
+
         this.playable = false;
         systemState.speechRecognition.stop();
 
@@ -2150,12 +2179,13 @@ class DialoguePlay {
             const oldOnStart = systemState.speechRecognition.onstart;
 
             systemState.speechRecognition.onstart = function (event) {
-                card.maxScore = 1;
-                card.currentScore = card.maxScore;
+                card.score = Math.max(1, card.score - 1);
                 that.remainingCards.pop();
                 that.remainingCards.unshift(card);
 
+                that.resetTrials();
                 that.resetGhost();
+
                 that.logCard();
                 that.playable = true;
 
@@ -2181,9 +2211,12 @@ class DialoguePlay {
 
     mount() {
         this.logCard();
-        this.questionStart = systemState.timestamp;
 
         const that = this;
+
+        // NOTE (mristin):
+        // We do not use `decorateSpeechRecognitionToContinuouslyRestart`
+        // here as we need to accommodate to `this.playable`.
         this.oldSpeechRecognitionOnEnd = (
             systemState.speechRecognition.onend
         );
@@ -2267,13 +2300,15 @@ class DialoguePlay {
     }
 
     refreshPotential() {
-        const card = this.remainingCards[this.remainingCards.length - 1];
+        const card = (
+            this.remainingCards[this.remainingCards.length - 1]
+        );
 
         /**
          * @type {Array<string>}
          */
         const diamonds = [];
-        for (let i = 0; i < card.currentScore; i++) {
+        for (let i = 0; i < card.score; i++) {
             diamonds.push("💎");
         }
 
@@ -2306,18 +2341,20 @@ class DialoguePlay {
     }
 
     tick(timestamp) {
-        if (this.playable) {
-            if (this.lastGhostStep === null) {
-                this.lastGhostStep = systemState.timestamp;
-            } else {
-                const duration = systemState.timestamp - this.lastGhostStep;
-                if (duration > 1000) {
-                    this.ghostSteps--;
-                    this.lastGhostStep = systemState.timestamp;
+        if (!this.playable) {
+            return;
+        }
 
-                    if (this.ghostSteps === 0) {
-                        this.handleFail();
-                    }
+        if (this.lastGhostStep === null) {
+            this.lastGhostStep = timestamp;
+        } else {
+            const duration = timestamp - this.lastGhostStep;
+            if (duration > 1000) {
+                this.ghostSteps--;
+                this.lastGhostStep = timestamp;
+
+                if (this.ghostSteps === 0) {
+                    this.handleFail();
                 }
             }
         }
@@ -2347,14 +2384,18 @@ const
  * @implements IDialogue
  */
 class DialogueBravo {
-    constructor() {
-        this.oldSpeechRecognitionOnEnd = null;
+    constructor(score) {
+        this.undecorateSpeechRecognitionOnEnd = null;
         this.oldSpeechRecognitionOnResult = null;
+
+        this.score = score;
+        this.totalScore = levels[gameState.levelIndex].vocabulary.length * 3;
     }
 
     initialHTML() {
         return `<div id="bravo-container">
     <div id="bravo">👏 Bravo! 👏</div>
+    <div id="bravo-score">${this.score} 💎 out of ${this.totalScore} 💎</div>
     <button id="restart">Restart</button>
 </div>`;
     }
@@ -2363,33 +2404,26 @@ class DialogueBravo {
         dialoguer.put(new DialogueSelectLevel())
     }
 
+    // noinspection DuplicatedCode
     mount() {
         document.getElementById("restart").onclick = () => {
             this.restart()
         }
 
         const messageIndex = Math.floor(Math.random() * bravoMessages.length);
-        announce(bravoMessages[messageIndex])
-            .catch(err => {
-                console.log("Failed to say bravo", err)
-            })
+        announce(
+            bravoMessages[messageIndex]
+            + `${this.score} out of ${this.totalScore}`
+        )
+        .catch(err => {
+            console.log("Failed to say bravo", err)
+        })
 
+        this.undecorateSpeechRecognitionOnEnd = (
+            decorateSpeechRecognitionToContinuouslyRestart()
+        );
 
         const that = this;
-
-        this.oldSpeechRecognitionOnEnd = (
-            systemState.speechRecognition.onend
-        );
-        systemState.speechRecognition.onend = function (event) {
-            if (that.oldSpeechRecognitionOnEnd) {
-                that.oldSpeechRecognitionOnEnd(event);
-            }
-
-            // NOTE (mristin):
-            // Chrome turns off sometimes the speech recognition arbirarily,
-            // so we have to turn it on.
-            systemState.speechRecognition.start();
-        }
 
         this.oldSpeechRecognitionOnResult = (
             systemState.speechRecognition.onresult
@@ -2421,7 +2455,7 @@ class DialogueBravo {
             this.oldSpeechRecognitionOnResult
         );
 
-        systemState.speechRecognition.onend = this.oldSpeechRecognitionOnEnd;
+        this.undecorateSpeechRecognitionOnEnd();
     }
 }
 
