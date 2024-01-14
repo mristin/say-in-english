@@ -1242,7 +1242,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/vulva.png'>",
-                answers: ["vulva"]
+                answers: ["vulva", "volva", "volvo"]
             },
             {
                 question: "<img src='additional-emojis/butt.png'>",
@@ -1310,7 +1310,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/paw.png'>",
-                answers: ["paw"]
+                answers: ["paw", "Paul", "pole"]
             },
             {
                 question: "<img src='additional-emojis/tail.png'>",
@@ -1330,7 +1330,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/mane.png'>",
-                answers: ["mane"]
+                answers: ["mane", "main", "Maine"]
             },
             {
                 question: "<img src='additional-emojis/cheek.png'>",
@@ -1358,7 +1358,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/heart.png'>",
-                answers: ["heart"]
+                answers: ["heart", "hot"]
             },
             {
                 question: "<img src='additional-emojis/blood.png'>",
@@ -1807,7 +1807,7 @@ function decorateSpeechRecognitionToContinuouslyRestart() {
         systemState.speechRecognition.start();
     }
 
-    return function() {
+    return function () {
         systemState.speechRecognition.onend = oldSpeechRecognitionOnEnd;
     }
 }
@@ -2422,9 +2422,9 @@ class DialogueBravo {
             bravoMessages[messageIndex]
             + `${this.score} out of ${this.totalScore}`
         )
-        .catch(err => {
-            console.log("Failed to say bravo", err)
-        })
+            .catch(err => {
+                console.log("Failed to say bravo", err)
+            })
 
         this.undecorateSpeechRecognitionOnEnd = (
             decorateSpeechRecognitionToContinuouslyRestart()
