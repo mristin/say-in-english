@@ -1241,6 +1241,10 @@ const levels = [
                 answers: ["penis"]
             },
             {
+                question: "<img src='additional-emojis/testicles.png'>",
+                answers: ["testicles"]
+            },
+            {
                 question: "<img src='additional-emojis/vulva.png'>",
                 answers: ["vulva", "volva", "volvo"]
             },
