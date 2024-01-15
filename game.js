@@ -2614,7 +2614,7 @@ function setupSpeechRecognition() {
     recognition.continuous = true;
     recognition.lang = "en-US";
     recognition.interimResults = false;
-    recognition.maxAlternatives = 3;
+    recognition.maxAlternatives = 10;
     recognition.start();
 
     const microphone = document.getElementById(
