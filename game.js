@@ -1222,7 +1222,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/foot-sole.png'>",
-                answers: ["sole"]
+                answers: ["sole", "soul"]
             },
             {
                 question: "<img src='additional-emojis/heel-pain.png'>",
@@ -1310,7 +1310,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/toe.png'>",
-                answers: ["toe"]
+                answers: ["toe", "two"]
             },
             {
                 question: "<img src='additional-emojis/paw.png'>",
