@@ -2199,7 +2199,16 @@ class DialoguePlay {
                 systemState.speechRecognition.onstart = oldOnStart;
             }
 
-            systemState.speechRecognition.start();
+            try {
+                systemState.speechRecognition.start();
+            } catch(error) {
+                console.log(
+                    "The speech recognition failed to start: ",
+                    error,
+                    "We are going to silently continue as if it started."
+                );
+            }
+
         }
 
         promiseToRevealCorrectAnswer(card.answers[0])
