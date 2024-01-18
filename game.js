@@ -2078,9 +2078,29 @@ class DialoguePlay {
     playMistake() {
         const audio = new Audio("negative.mp3");
         audio.volume = 0.1;
-        audio.play().catch(
-            reason => console.log("Failed to play negative sound", reason)
-        );
+
+        this.playable = false;
+        systemState.speechRecognition.stop();
+        audio.play()
+            .then(
+                () => {
+                    try {
+                        systemState.speechRecognition.start();
+                    } catch (error) {
+                        console.log(
+                            "Speech recognition failed to restart after " +
+                            "playing a mistake: ", error,
+                            "; but we simply ignore this error as speech " +
+                            "recognition often continues working."
+                        )
+                    }
+
+                    this.playable = true;
+                }
+            )
+            .catch(
+                reason => console.log("Failed to play negative sound", reason)
+            );
     }
 
     playSuccess() {
@@ -2201,7 +2221,7 @@ class DialoguePlay {
 
             try {
                 systemState.speechRecognition.start();
-            } catch(error) {
+            } catch (error) {
                 console.log(
                     "The speech recognition failed to start: ",
                     error,
