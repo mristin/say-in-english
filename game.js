@@ -1101,7 +1101,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/galley.png'>",
-                answers: ["galley"]
+                answers: ["galley", "helly", "golly"]
             },
             {
                 question: "<img src='additional-emojis/fleet.png'>",
