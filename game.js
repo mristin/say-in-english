@@ -744,7 +744,7 @@ const levels = [
         ]
     },
     {
-        name: "Foods and Drinks",
+        name: "Foods and Drinks 1",
         vocabulary: [
             {
                 question: "<img src='additional-emojis/to-eat.png'>",
@@ -820,7 +820,12 @@ const levels = [
             {question: "🫑", answers: ["bell pepper"]},
             {question: "🌶", answers: ["hot pepper"]},
             {question: "🍕", answers: ["pizza"]},
-            {question: "🍝", answers: ["spaghetti"]},
+            {question: "🍝", answers: ["spaghetti"]}
+        ]
+    },
+    {
+        name: "Foods and Drinks 2",
+        vocabulary: [
             {question: "🍚", answers: ["rice"]},
             {question: "🍨", answers: ["ice cream"]},
             {question: "🍩", answers: ["doughnut"]},
