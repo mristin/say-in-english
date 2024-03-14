@@ -807,7 +807,12 @@ const levels = [
             {
                 question: "<img src='additional-emojis/blackberry.png'>",
                 answers: ["blackberry"]
-            },
+            }
+        ]
+    },
+    {
+        name: "Foods and Drinks 2",
+        vocabulary: [
             {question: "🍑", answers: ["peach"]},
             {question: "🥝", answers: ["kiwi fruit"]},
             {question: "🥒", answers: ["cucumber"]},
@@ -820,12 +825,7 @@ const levels = [
             {question: "🫑", answers: ["bell pepper"]},
             {question: "🌶", answers: ["hot pepper"]},
             {question: "🍕", answers: ["pizza"]},
-            {question: "🍝", answers: ["spaghetti"]}
-        ]
-    },
-    {
-        name: "Foods and Drinks 2",
-        vocabulary: [
+            {question: "🍝", answers: ["spaghetti"]},
             {question: "🍚", answers: ["rice"]},
             {question: "🍨", answers: ["ice cream"]},
             {question: "🍩", answers: ["doughnut"]},
@@ -842,7 +842,12 @@ const levels = [
             {question: "🍔", answers: ["hamburger"]},
             {question: "🥪", answers: ["sandwich"]},
             {question: "🍲", answers: ["soup"]},
-            {question: "🥄", answers: ["spoon"]},
+            {question: "🥄", answers: ["spoon"]}
+        ]
+    },
+    {
+        name: "Foods and Drinks 3",
+        vocabulary: [
             {
                 question: "<img src='additional-emojis/fork.png'>",
                 answers: ["fork"]
