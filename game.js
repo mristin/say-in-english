@@ -828,7 +828,7 @@ const levels = [
             {question: "🍝", answers: ["spaghetti"]},
             {question: "🍚", answers: ["rice"]},
             {question: "🍨", answers: ["ice cream"]},
-            {question: "🍩", answers: ["doughnut"]},
+            {question: "🍩", answers: ["doughnut", "donut"]},
             {question: "🍪", answers: ["cookie"]},
             {question: "🎂", answers: ["cake"]},
             {question: "🧁", answers: ["cupcake"]},
