@@ -866,7 +866,9 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/pot.png'>",
-                answers: ["pot"]
+                // We need to accept "top" as the word "pot" is often wrongly
+                // recognized as "top".
+                answers: ["pot", "top"]
             },
             {
                 question: "<img src='additional-emojis/pan.png'>",
