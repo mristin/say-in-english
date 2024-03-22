@@ -916,7 +916,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/sweet.png'>",
-                answers: ["sweet"]
+                answers: ["sweets"]
             },
             {
                 question: "<img src='additional-emojis/breakfast.png'>",
