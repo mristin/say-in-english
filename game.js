@@ -973,7 +973,7 @@ const levels = [
         ]
     },
     {
-        name: "Middle ages",
+        name: "Middle ages 1",
         vocabulary: [
             {
                 question: "<img src='additional-emojis/castle.png'>",
@@ -1074,7 +1074,12 @@ const levels = [
             {
                 question: "<img src='additional-emojis/sabre.png'>",
                 answers: ["sabre", "saber", "sable"]
-            },
+            }
+        ]
+    },
+    {
+        name: "Middle ages 2",
+        vocabulary: [
             {
                 question: "<img src='additional-emojis/katana.png'>",
                 answers: ["katana"]
