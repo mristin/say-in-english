@@ -1211,7 +1211,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/hand-palm.png'>",
-                answers: ["palm"]
+                answers: ["palm", "Paul", "poem"]
             },
             {
                 question: "<img src='additional-emojis/head.png'>",
