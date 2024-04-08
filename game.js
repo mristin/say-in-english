@@ -1480,7 +1480,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/drawing-compass.png'>",
-                answers: ["drawing compass"]
+                answers: ["drawing compass", "growing compass", "throwing compass"]
             },
             {
                 question: "<img src='additional-emojis/marker.png'>",
