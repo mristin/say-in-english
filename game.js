@@ -1511,6 +1511,314 @@ const levels = [
                 answers: ["glasses"]
             }
         ]
+    },
+    {
+        name: "Around the house",
+        vocabulary: [
+            {
+                question: "<img src='additional-emojis/attic.png'>",
+                answers: ["attic"]
+            },
+            {
+                question: "<img src='additional-emojis/bathroom.png'>",
+                answers: ["bathroom"]
+            },
+            {
+                question: "<img src='additional-emojis/bedroom.png'>",
+                answers: ["bedroom"]
+            },
+            {
+                question: "<img src='additional-emojis/cellar.png'>",
+                answers: ["cellar"]
+            },
+            {
+                question: "<img src='additional-emojis/dining-room.png'>",
+                answers: ["dining room"]
+            },
+            {
+                question: "<img src='additional-emojis/entry-hall.png'>",
+                answers: ["hall"]
+            },
+            {
+                question: "<img src='additional-emojis/kitchen.png'>",
+                answers: ["kitchen"]
+            },
+            {
+                question: "<img src='additional-emojis/living-room.png'>",
+                answers: ["living room"]
+            },
+            {
+                question: "<img src='additional-emojis/room.png'>",
+                answers: ["room"]
+            },
+            {
+                question: "<img src='additional-emojis/chimney.png'>",
+                answers: ["chimney"]
+            },
+            {
+                question: "<img src='additional-emojis/door.png'>",
+                answers: ["door"]
+            },
+            {
+                question: "<img src='additional-emojis/door-bell.png'>",
+                answers: ["doorbell", "door bell"]
+            },
+            {
+                question: "<img src='additional-emojis/fireplace.png'>",
+                answers: ["fireplace"]
+            },
+            {
+                question: "<img src='additional-emojis/garage.png'>",
+                answers: ["garage"]
+            },
+            {
+                question: "<img src='additional-emojis/garden.png'>",
+                answers: ["garden"]
+            },
+            {
+                question: "<img src='additional-emojis/mailbox.png'>",
+                answers: ["mailbox"]
+            },
+            {
+                question: "<img src='additional-emojis/roof.png'>",
+                answers: ["roof"]
+            },
+            {
+                question: "<img src='additional-emojis/window.png'>",
+                answers: ["window"]
+            }
+        ]
+    },
+    {
+        name: "In the house",
+        vocabulary: [
+            {
+                question: "<img src='additional-emojis/carpet.png'>",
+                answers: ["carpet"]
+            },
+            {
+                question: "<img src='additional-emojis/computer.png'>",
+                answers: ["computer"]
+            },
+            {
+                question: "<img src='additional-emojis/desk.png'>",
+                answers: ["desk"]
+            },
+            {
+                question: "<img src='additional-emojis/furniture.png'>",
+                answers: ["furniture"]
+            },
+            {
+                question: "<img src='additional-emojis/key.png'>",
+                answers: ["key"]
+            },
+            {
+                question: "<img src='additional-emojis/lock.png'>",
+                answers: ["lock"]
+            },
+            {
+                question: "<img src='additional-emojis/stairs.png'>",
+                answers: ["stairs"]
+            },
+            {
+                question: "<img src='additional-emojis/telephone.png'>",
+                answers: ["telephone"]
+            },
+            {
+                question: "<img src='additional-emojis/toys.png'>",
+                answers: ["toys"]
+            },
+            {
+                question: "<img src='additional-emojis/clock.png'>",
+                answers: ["clock"]
+            },
+            {
+                question: "<img src='additional-emojis/bed.png'>",
+                answers: ["bed", "bad"]
+            },
+            {
+                question: "<img src='additional-emojis/blanket.png'>",
+                answers: ["blanket"]
+            },
+            {
+                question: "<img src='additional-emojis/curtain.png'>",
+                answers: ["curtain"]
+            },
+            {
+                question: "<img src='additional-emojis/lamp.png'>",
+                answers: ["lamp"]
+            },
+            {
+                question: "<img src='additional-emojis/pillow.png'>",
+                answers: ["pillow"]
+            },
+            {
+                question: "<img src='additional-emojis/wardrobe.png'>",
+                answers: ["wardrobe"]
+            },
+            {
+                question: "<img src='additional-emojis/armchair.png'>",
+                answers: ["armchair"]
+            },
+            {
+                question: "<img src='additional-emojis/bookcase.png'>",
+                answers: ["bookcase"]
+            },
+            {
+                question: "<img src='additional-emojis/sofa.png'>",
+                answers: ["sofa"]
+            },
+            {
+                question: "<img src='additional-emojis/tv.png'>",
+                answers: ["TV"]
+            },
+            {
+                question: "<img src='additional-emojis/shelf.png'>",
+                answers: ["shelf"]
+            }
+        ]
+    },
+    {
+        name: "Cooking and dining",
+        vocabulary: [
+            {
+                question: "<img src='additional-emojis/broom.png'>",
+                answers: ["broom"]
+            },
+            {
+                question: "<img src='additional-emojis/dust-pan.png'>",
+                answers: ["dust pan"]
+            },
+            {
+                question: "<img src='additional-emojis/cooker.png'>",
+                answers: ["cooker"]
+            },
+            {
+                question: "<img src='additional-emojis/cup.png'>",
+                answers: ["cup"]
+            },
+            {
+                question: "<img src='additional-emojis/cupboard.png'>",
+                answers: ["cupboard"]
+            },
+            {
+                question: "<img src='additional-emojis/dishwasher.png'>",
+                answers: ["dishwasher"]
+            },
+            {
+                question: "<img src='additional-emojis/fridge.png'>",
+                answers: ["fridge"]
+            },
+            {
+                question: "<img src='additional-emojis/pan.png'>",
+                answers: ["pan"]
+            },
+            {
+                question: "<img src='additional-emojis/pot.png'>",
+                answers: ["pot", "top", "pop"]
+            },
+            {
+                question: "<img src='additional-emojis/sink.png'>",
+                answers: ["sink"]
+            },
+            {
+                question: "<img src='additional-emojis/vacuum-cleaner.png'>",
+                answers: ["vacuum cleaner"]
+            },
+            {
+                question: "<img src='additional-emojis/chair.png'>",
+                answers: ["chair"]
+            },
+            {
+                question: "<img src='additional-emojis/fork.png'>",
+                answers: ["fork"]
+            },
+            {
+                question: "<img src='additional-emojis/glass.png'>",
+                answers: ["glass"]
+            },
+            {
+                question: "<img src='additional-emojis/knife-for-eating.png'>",
+                answers: ["knife"]
+            },
+            {
+                question: "<img src='additional-emojis/plate.png'>",
+                answers: ["plate"]
+            },
+            {
+                question: "<img src='additional-emojis/spoon.png'>",
+                answers: ["spoon"]
+            },
+            {
+                question: "<img src='additional-emojis/table.png'>",
+                answers: ["table"]
+            },
+            {
+                question: "<img src='additional-emojis/teaspoon.png'>",
+                answers: ["teaspoon"]
+            }
+        ]
+    },
+    {
+        name: "Bathroom",
+        vocabulary: [
+            {
+                question: "<img src='additional-emojis/basin.png'>",
+                answers: ["basin"]
+            },
+            {
+                question: "<img src='additional-emojis/bathtub.png'>",
+                answers: ["bathtub"]
+            },
+            {
+                question: "<img src='additional-emojis/comb.png'>",
+                answers: ["comb"]
+            },
+            {
+                question: "<img src='additional-emojis/hairbrush.png'>",
+                answers: ["hairbrush", "hair brush"]
+            },
+            {
+                question: "<img src='additional-emojis/mirror.png'>",
+                answers: ["mirror"]
+            },
+            {
+                question: "<img src='additional-emojis/shampoo.png'>",
+                answers: ["shampoo"]
+            },
+            {
+                question: "<img src='additional-emojis/shower.png'>",
+                answers: ["shower"]
+            },
+            {
+                question: "<img src='additional-emojis/soap.png'>",
+                answers: ["soap"]
+            },
+            {
+                question: "<img src='additional-emojis/tap.png'>",
+                answers: ["tap"]
+            },
+            {
+                question: "<img src='additional-emojis/toilet.png'>",
+                answers: ["toilet"]
+            },
+            {
+                question: "<img src='additional-emojis/toilet-paper.png'>",
+                answers: ["toilet paper"]
+            },
+            {
+                question: "<img src='additional-emojis/toothbrush.png'>",
+                answers: ["toothbrush", "tooth brush"]
+            },
+            {
+                question: "<img src='additional-emojis/toothpaste.png'>",
+                answers: ["toothpaste", "tooth paste"]
+            },
+            {
+                question: "<img src='additional-emojis/washing-machine.png'>",
+                answers: ["washing machine"]
+            }
+        ]
     }
 ];
 
