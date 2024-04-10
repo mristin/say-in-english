@@ -1963,6 +1963,26 @@ const levels = [
                 question: "<img src='additional-emojis/shorts.png'>",
                 answers: ["shorts"]
             },
+            {
+                question: "<img src='additional-emojis/tatami-mat.png'>",
+                answers: ["tatami mat"]
+            },
+            {
+                question: "<img src='additional-emojis/tatami-mat.png'>",
+                answers: ["tatami mat"]
+            },
+            {
+                question: "<img src='additional-emojis/skipping-rope.png'>",
+                answers: ["skipping rope"]
+            },
+            {
+                question: "<img src='additional-emojis/climbing.png'>",
+                answers: ["climbing"]
+            },
+            {
+                question: "<img src='additional-emojis/bouldering.png'>",
+                answers: ["bouldering"]
+            },
         ]
     }
 ];
