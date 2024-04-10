@@ -1819,6 +1819,151 @@ const levels = [
                 answers: ["washing machine"]
             }
         ]
+    },
+    {
+        name: "Sports",
+        vocabulary: [
+            {
+                question: "<img src='additional-emojis/athletics.png'>",
+                answers: ["athletics"]
+            },
+            {
+                question: "<img src='additional-emojis/badminton.png'>",
+                answers: ["badminton"]
+            },
+            {
+                question: "<img src='additional-emojis/baseball.png'>",
+                answers: ["baseball"]
+            },
+            {
+                question: "<img src='additional-emojis/basketball.png'>",
+                answers: ["basketball"]
+            },
+            {
+                question: "<img src='additional-emojis/soccer.png'>",
+                answers: ["soccer"]
+            },
+            {
+                question: "<img src='additional-emojis/football.png'>",
+                answers: ["football"]
+            },
+            {
+                question: "<img src='additional-emojis/golf.png'>",
+                answers: ["golf"]
+            },
+            {
+                question: "<img src='additional-emojis/gymnastics.png'>",
+                answers: ["gymnastics"]
+            },
+            {
+                question: "<img src='additional-emojis/hockey.png'>",
+                answers: ["hockey"]
+            },
+            {
+                question: "<img src='additional-emojis/ice-hockey.png'>",
+                answers: ["ice hockey"]
+            },
+            {
+                question: "<img src='additional-emojis/horseback-riding.png'>",
+                answers: ["horseback riding"]
+            },
+            {
+                question: "<img src='additional-emojis/judo.png'>",
+                answers: ["judo"]
+            },
+            {
+                question: "<img src='additional-emojis/boxing.png'>",
+                answers: ["boxing"]
+            },
+            {
+                question: "<img src='additional-emojis/capoeira.png'>",
+                answers: ["capoeira"]
+            },
+            {
+                question: "<img src='additional-emojis/running.png'>",
+                answers: ["running"]
+            },
+            {
+                question: "<img src='additional-emojis/sailing.png'>",
+                answers: ["sailing"]
+            },
+            {
+                question: "<img src='additional-emojis/skiing.png'>",
+                answers: ["skiing"]
+            },
+            {
+                question: "<img src='additional-emojis/swimming.png'>",
+                answers: ["swimming"]
+            },
+            {
+                question: "<img src='additional-emojis/table-tennis.png'>",
+                answers: ["table tennis"]
+            },
+            {
+                question: "<img src='additional-emojis/tennis.png'>",
+                answers: ["tennis"]
+            },
+            {
+                question: "<img src='additional-emojis/volleyball.png'>",
+                answers: ["volleyball"]
+            },
+            {
+                question: "<img src='additional-emojis/hide-and-seek.png'>",
+                answers: ["hide and seek"]
+            },
+            {
+                question: "<img src='additional-emojis/cops-and-robbers.png'>",
+                answers: ["cops and robbers"]
+            },
+            {
+                question: "<img src='additional-emojis/baseball-bat.png'>",
+                answers: ["baseball bat"]
+            },
+            {
+                question: "<img src='additional-emojis/basketball-basket.png'>",
+                answers: ["basket"]
+            },
+            {
+                question: "<img src='additional-emojis/ball.png'>",
+                answers: ["ball"]
+            },
+            {
+                question: "<img src='additional-emojis/racket.png'>",
+                answers: ["racket"]
+            },
+            {
+                question: "<img src='additional-emojis/shin-guard.png'>",
+                answers: ["shin guard"]
+            },
+            {
+                question: "<img src='additional-emojis/pads.png'>",
+                answers: ["pads"]
+            },
+            {
+                question: "<img src='additional-emojis/groin-guard.png'>",
+                answers: ["groin guard"]
+            },
+            {
+                question: "<img src='additional-emojis/ice-hockey-stick.png'>",
+                answers: ["stick"]
+            },
+            {
+                question: "<img src='additional-emojis/puck.png'>",
+                answers: ["puck"]
+            },
+            {
+                question: "<img src='additional-emojis/'>",
+                answers: ["stick"]
+            },
+            {
+                question: "<img src='additional-emojis/t-shirt.png'>",
+                answers: ["t-shirt"]
+            },
+            {
+                question: "<img src='additional-emojis/shorts.png'>",
+                answers: ["shorts"]
+            },
+        ]
     }
 ];
 
