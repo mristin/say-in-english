@@ -1821,7 +1821,7 @@ const levels = [
         ]
     },
     {
-        name: "Sports",
+        name: "Sports 1",
         vocabulary: [
             {
                 question: "<img src='additional-emojis/athletics.png'>",
@@ -1923,6 +1923,11 @@ const levels = [
                 question: "<img src='additional-emojis/basketball-basket.png'>",
                 answers: ["basket"]
             },
+        ]
+    },
+    {
+        name: "Sports 2",
+        vocabulary: [
             {
                 question: "<img src='additional-emojis/ball.png'>",
                 answers: ["ball"]
@@ -1982,6 +1987,62 @@ const levels = [
             {
                 question: "<img src='additional-emojis/bouldering.png'>",
                 answers: ["bouldering"]
+            },
+            {
+                question: "<img src='additional-emojis/sport-net.png'>",
+                answers: ["net"]
+            },
+            {
+                question: "<img src='additional-emojis/rope.png'>",
+                answers: ["rope"]
+            },
+            {
+                question: "<img src='additional-emojis/fencing.png'>",
+                answers: ["fencing"]
+            },
+            {
+                question: "<img src='additional-emojis/weight-lifting.png'>",
+                answers: ["weight lifting"]
+            },
+            {
+                question: "<img src='additional-emojis/sport-weights.png'>",
+                answers: ["weights"]
+            },
+            {
+                question: "<img src='additional-emojis/ball-pump.png'>",
+                answers: ["pump"]
+            },
+            {
+                question: "<img src='additional-emojis/gymnastics-vault.png'>",
+                answers: ["vault"]
+            },
+            {
+                question: "<img src='additional-emojis/gymnastics-bars.png'>",
+                answers: ["bars"]
+            },
+            {
+                question: "<img src='additional-emojis/wall-bars.jpg'>",
+                answers: ["wall bars"]
+            },
+            {
+                question: "<img src='additional-emojis/cones.png'>",
+                answers: ["cones"]
+            },
+            {
+                question: "<img src='additional-emojis/handball.png'>",
+                answers: ["handball", "hand ball"]
+            },
+            {
+                question: "<img src='additional-emojis/mat.jpg'>",
+                answers: ["mat"]
+            },
+            {
+                question: "<img src='additional-emojis/waterpolo.png'>",
+                answers: ["waterpolo", "water polo"]
+            },
+            {
+                question: "<img src='additional-emojis/sports-cycling.png'>",
+                answers: ["cycling"]
             },
         ]
     }
