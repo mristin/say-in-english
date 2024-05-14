@@ -1950,15 +1950,11 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/ice-hockey-stick.png'>",
-                answers: ["stick"]
+                answers: ["stick", "ice hockey stick"]
             },
             {
                 question: "<img src='additional-emojis/puck.png'>",
-                answers: ["puck"]
-            },
-            {
-                question: "<img src='additional-emojis/'>",
-                answers: ["stick"]
+                answers: ["puck", "pack"]
             },
             {
                 question: "<img src='additional-emojis/t-shirt.png'>",
@@ -1969,12 +1965,8 @@ const levels = [
                 answers: ["shorts"]
             },
             {
-                question: "<img src='additional-emojis/tatami-mat.png'>",
-                answers: ["tatami mat"]
-            },
-            {
-                question: "<img src='additional-emojis/tatami-mat.png'>",
-                answers: ["tatami mat"]
+                question: "<img src='additional-emojis/mat.png'>",
+                answers: ["mat", "tatami"]
             },
             {
                 question: "<img src='additional-emojis/skipping-rope.png'>",
@@ -2011,10 +2003,6 @@ const levels = [
             {
                 question: "<img src='additional-emojis/ball-pump.png'>",
                 answers: ["pump"]
-            },
-            {
-                question: "<img src='additional-emojis/gymnastics-vault.png'>",
-                answers: ["vault"]
             },
             {
                 question: "<img src='additional-emojis/gymnastics-bars.png'>",
