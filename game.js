@@ -1942,11 +1942,11 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/pads.png'>",
-                answers: ["pads"]
+                answers: ["pads", "pets"]
             },
             {
                 question: "<img src='additional-emojis/groin-guard.png'>",
-                answers: ["groin guard"]
+                answers: ["groin guard", "growing guard"]
             },
             {
                 question: "<img src='additional-emojis/ice-hockey-stick.png'>",
@@ -1963,10 +1963,6 @@ const levels = [
             {
                 question: "<img src='additional-emojis/shorts.png'>",
                 answers: ["shorts"]
-            },
-            {
-                question: "<img src='additional-emojis/mat.png'>",
-                answers: ["mat", "tatami"]
             },
             {
                 question: "<img src='additional-emojis/skipping-rope.png'>",
@@ -2010,7 +2006,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/wall-bars.jpg'>",
-                answers: ["wall bars"]
+                answers: ["wall bars", "vol bars", "bull bars"]
             },
             {
                 question: "<img src='additional-emojis/cones.png'>",
