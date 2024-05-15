@@ -2006,7 +2006,10 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/wall-bars.jpg'>",
-                answers: ["wall bars", "vol bars", "bull bars"]
+                answers: [
+                    "wall bars", "vol bars", "bull bars", "roll bars",
+                    "wool bars"
+                ]
             },
             {
                 question: "<img src='additional-emojis/cones.png'>",
