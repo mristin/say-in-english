@@ -2030,7 +2030,100 @@ const levels = [
             {
                 question: "<img src='additional-emojis/sports-cycling.png'>",
                 answers: ["cycling"]
+            }
+        ]
+    },
+    {
+        name: "Prepositions",
+        vocabulary: [
+            {
+                question: "<img src='additional-emojis/preposition-above.png'>",
+                answers: ["above"]
             },
+            {
+                question: "<img src='additional-emojis/preposition-across.png'>",
+                answers: ["across"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-among.png'>",
+                answers: ["among"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-around.png'>",
+                answers: ["around"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-away.png'>",
+                answers: ["away"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-behind.png'>",
+                answers: ["behind"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-below.png'>",
+                answers: ["below"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-between.png'>",
+                answers: ["between"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-by.png'>",
+                answers: ["by", "bye", "pie", "pi"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-in-front-of.png'>",
+                answers: ["in front of"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-in.png'>",
+                answers: ["in"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-into.png'>",
+                answers: ["into"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-off.png'>",
+                answers: ["off"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-on.png'>",
+                answers: ["on"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-onto.png'>",
+                answers: ["onto", "on to"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-out.png'>",
+                answers: ["out"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-over.png'>",
+                answers: ["over"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-past.png'>",
+                answers: ["past"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-through.png'>",
+                answers: ["through"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-toward.png'>",
+                answers: ["toward", "towards"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-under-movement.png'>",
+                answers: ["under"]
+            },
+            {
+                question: "<img src='additional-emojis/preposition-under.png'>",
+                answers: ["under"]
+            }
         ]
     }
 ];
