@@ -2086,7 +2086,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/preposition-off.png'>",
-                answers: ["off"]
+                answers: ["off", "off off", "all off", "off all"]
             },
             {
                 question: "<img src='additional-emojis/preposition-on.png'>",
