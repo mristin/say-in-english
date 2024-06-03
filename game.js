@@ -2125,7 +2125,193 @@ const levels = [
                 answers: ["under"]
             }
         ]
-    }
+    },
+    {
+        name: "Clothes 1",
+        vocabulary: [
+            {
+                question: "<img src='additional-emojis/changing-room.png'>",
+                answers: ["changing room"]
+            },
+            {
+                question: "<img src='additional-emojis/hanger.png'>",
+                answers: ["hanger"]
+            },
+            {
+                question: "<img src='additional-emojis/swimming-suit.png'>",
+                answers: ["swimming suit", "bathing suit"]
+            },
+            {
+                question: "<img src='additional-emojis/belt.png'>",
+                answers: ["belt"]
+            },
+            {
+                question: "<img src='additional-emojis/blouse.png'>",
+                answers: ["blouse", "blues"]
+            },
+            {
+                question: "<img src='additional-emojis/button.png'>",
+                answers: ["button"]
+            },
+            {
+                question: "<img src='additional-emojis/cap.png'>",
+                answers: ["cap"]
+            },
+            {
+                question: "<img src='additional-emojis/coat.png'>",
+                answers: ["coat"]
+            },
+            {
+                question: "<img src='additional-emojis/dress.png'>",
+                answers: ["dress"]
+            },
+            {
+                question: "<img src='additional-emojis/gloves.png'>",
+                answers: ["gloves", "glove"]
+            },
+            {
+                question: "<img src='additional-emojis/hat.png'>",
+                answers: ["hat"]
+            },
+            {
+                question: "<img src='additional-emojis/hood.png'>",
+                answers: ["hood"]
+            },
+            {
+                question: "<img src='additional-emojis/jeans.png'>",
+                answers: ["jeans"]
+            },
+            {
+                question: "<img src='additional-emojis/mittens.png'>",
+                answers: ["mittens"]
+            },
+            {
+                question: "<img src='additional-emojis/pullover.png'>",
+                answers: ["pullover", "sweater"]
+            },
+            {
+                question: "<img src='additional-emojis/pyjamas.png'>",
+                answers: ["pyjamas"]
+            },
+            {
+                question: "<img src='additional-emojis/scarf.png'>",
+                answers: ["scarf"]
+            },
+            {
+                question: "<img src='additional-emojis/t-shirt.png'>",
+                answers: ["t-shirt"]
+            },
+            {
+                question: "<img src='additional-emojis/shirt.png'>",
+                answers: ["shirt"]
+            },
+            {
+                question: "<img src='additional-emojis/skirt.png'>",
+                answers: ["skirt"]
+            },
+            {
+                question: "<img src='additional-emojis/socks.png'>",
+                answers: ["socks"]
+            },
+        ]
+    },
+    {
+        name: "Clothes 2",
+        vocabulary: [
+            {
+                question: "<img src='additional-emojis/tie.png'>",
+                answers: ["tie"]
+            },
+            {
+                question: "<img src='additional-emojis/tights.png'>",
+                answers: ["tights"]
+            },
+            {
+                question: "<img src='additional-emojis/trousers.png'>",
+                answers: ["trousers"]
+            },
+            {
+                question: "<img src='additional-emojis/woolly-hat.png'>",
+                answers: ["woolly hat"]
+            },
+            {
+                question: "<img src='additional-emojis/zipper.png'>",
+                answers: ["zipper"]
+            },
+            {
+                question: "<img src='additional-emojis/boots.png'>",
+                answers: ["boots"]
+            },
+            {
+                question: "<img src='additional-emojis/sandals.png'>",
+                answers: ["sandals"]
+            },
+            {
+                question: "<img src='additional-emojis/shoes.png'>",
+                answers: ["shoes"]
+            },
+            {
+                question: "<img src='additional-emojis/slippers.png'>",
+                answers: ["slippers"]
+            },
+            {
+                question: "<img src='additional-emojis/trainers.png'>",
+                answers: ["trainers"]
+            },
+            {
+                question: "<img src='additional-emojis/laces.png'>",
+                answers: ["laces"]
+            },
+            {
+                question: "<img src='additional-emojis/bag.png'>",
+                answers: ["bag"]
+            },
+            {
+                question: "<img src='additional-emojis/handbag.png'>",
+                answers: ["hand bag", "handbag"]
+            },
+            {
+                question: "<img src='additional-emojis/backpack.png'>",
+                answers: ["backpack", "rucksack"]
+            },
+            {
+                question: "<img src='additional-emojis/wallet.png'>",
+                answers: ["wallet"]
+            },
+            {
+                question: "<img src='additional-emojis/suitcase.png'>",
+                answers: ["suitcase"]
+            },
+            {
+                question: "<img src='additional-emojis/pocket.png'>",
+                answers: ["pocket"]
+            },
+            {
+                question: "<img src='additional-emojis/bracelet.png'>",
+                answers: ["bracelet"]
+            },
+            {
+                question: "<img src='additional-emojis/earring.png'>",
+                answers: ["earring", "ear ring"]
+            },
+            {
+                question: "<img src='additional-emojis/necklace.png'>",
+                answers: ["necklace"]
+            },
+            {
+                question: "<img src='additional-emojis/ring.png'>",
+                answers: ["ring"]
+            },
+            {
+                question: "<img src='additional-emojis/watch.png'>",
+                answers: ["watch"]
+            },
+            {
+                question: "<img src='additional-emojis/striped.png'>",
+                answers: ["striped"]
+            },
+        ]
+    },
 ];
 
 if (levels.length === 0) {
