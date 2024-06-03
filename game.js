@@ -2191,7 +2191,7 @@ const levels = [
             },
             {
                 question: "<img src='additional-emojis/pyjamas.png'>",
-                answers: ["pyjamas"]
+                answers: ["pyjamas", "pajamas", "pyjama", "pajama"]
             },
             {
                 question: "<img src='additional-emojis/scarf.png'>",
