@@ -2310,6 +2310,14 @@ const levels = [
                 question: "<img src='additional-emojis/striped.png'>",
                 answers: ["striped"]
             },
+            {
+                question: "<img src='additional-emojis/jacket.png'>",
+                answers: ["jacket"]
+            },
+            {
+                question: "<img src='additional-emojis/rain-pants.png'>",
+                answers: ["rain pants"]
+            },
         ]
     },
 ];
